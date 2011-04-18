@@ -88,7 +88,8 @@ def setCode(code):
         raise Exception("Code given is invalid.")
    
 def main():
-    """ Start everything up and run bi4emp! """
+    """ Start everything up and run blu4emp! """
+    global __CONN_CODE, __EMP_PORT,__NUM_CONNECTIONS,__KILL_WHEN_CONNECTED
     
     parser  = OptionParser(usage=__usage__, 
                            version="Version: blu4emp v"+__version__,
@@ -126,7 +127,7 @@ def main():
     # Determine what we do!
     try:
         if options.state:
-            __EMP_PORT = int(args[0]) 
+            if len(args)>0:__EMP_PORT = int(args[0])
             from blu4emp_server import serverMode
             serverMode(__CONN_CODE,
                        __EMP_PORT,
@@ -137,6 +138,7 @@ def main():
             from blu4emp_client import clientMode
             clientMode(__CONN_CODE, macname )
             
-    except Exception, e: print e
+    except Exception, e:
+        print e
         
 if __name__ == "__main__": main();
